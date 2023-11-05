@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { clickEvent, gameData, tileData } from './constants/constants';
 import Board from './components/Board';
-import { fillBoard, revealEmptyTiles } from './components/core';
+import { fillBoard } from './components/core';
 import { HEIGHT, WIDTH } from './constants/constants';
-
-
-
-
-
-
 
 
 function App() {
@@ -20,13 +14,6 @@ function App() {
     height: HEIGHT,
     width: WIDTH
   });
-
-  
-
-  const [tileClick, setTileClick] = useState<clickEvent>();
-  if(gameBoard){
-
-  }
 
   return (
     <div>

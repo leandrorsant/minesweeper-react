@@ -11,7 +11,14 @@ const Board = ({board,gameData}:{board: tileData[][], gameData: gameData}) => {
   return (
     <>
       <div>
-        <Center><Box onClick={() => reset(gameData)}>{gameData.state != 'gameOver'? <IconMoodSmileBeam size={70}/> : <IconMoodSad size={70}/>}</Box></Center>
+        <Center>
+          <Box onClick={() => reset(gameData)}>
+            {gameData.state !== 'gameOver'? 
+              <IconMoodSmileBeam size={70}/> : 
+              <IconMoodSad size={70}/>}
+            </Box>
+        </Center>
+
         {board.map( (row, _row_index) => (
           <Center key={_row_index}>
             {row.map( (t, _tile_index) => (

@@ -18,8 +18,6 @@ export const revealEmptyTiles = (tileClick : clickEvent, board: tileData[][]) : 
       revealEmptyTiles({type: 'left', x: tileClick.x, y: tileClick.y+1}, board.slice());
       revealEmptyTiles({type: 'left', x: tileClick.x-1, y: tileClick.y}, board.slice());
       revealEmptyTiles({type: 'left', x: tileClick.x+1, y: tileClick.y}, board.slice());
-      revealEmptyTiles({type: 'left', x: tileClick.x-1, y: tileClick.y-1}, board.slice());
-      revealEmptyTiles({type: 'left', x: tileClick.x+1, y: tileClick.y+1}, board.slice());
       
     } 
   }
@@ -30,43 +28,43 @@ export const getBombCount = (x: number, y: number, board: tileData[][])=>{
     const WIDTH = board[0].length;
     
     if( x-1 >= 0 && y-1 >=0 ){
-      if(board[x-1][y-1].content == 1){
+      if(board[x-1][y-1].content === 1){
         bombCount++;
       }
     }
     if(x-1 >= 0){
-      if(board[x-1][y].content == 1){
+      if(board[x-1][y].content === 1){
         bombCount++;
       }
     }
     if(x-1>= 0 && y+1 < WIDTH){
-      if(board[x-1][y+1].content == 1){
+      if(board[x-1][y+1].content === 1){
         bombCount++;
       }
     }
     if(y-1 >= 0){
-      if(board[x][y-1].content == 1){
+      if(board[x][y-1].content === 1){
         bombCount++;
       }
     }
   
     if(y+1 < WIDTH){
-      if(board[x][y+1].content == 1){
+      if(board[x][y+1].content === 1){
         bombCount++;
       }
     } 
     if( x+1 < HEIGHT && y-1 >= 0){
-      if(board[x+1][y-1].content == 1){
+      if(board[x+1][y-1].content === 1){
         bombCount++;
       }
     } 
     if (x+1<HEIGHT){
-      if(board[x+1][y].content == 1){
+      if(board[x+1][y].content === 1){
         bombCount++;
       }
     }
     if (x+1 < HEIGHT && y+1<WIDTH){
-      if(board[x+1][y+1].content == 1){
+      if(board[x+1][y+1].content === 1){
         bombCount++;
       }
     }
@@ -114,7 +112,7 @@ export const getBombCount = (x: number, y: number, board: tileData[][])=>{
     
     for(let x=0;x<gameData.height;x++){
         for(let y=0;y<gameData.height;y++){
-            if(gameData.board[x][y].content != 1 && !gameData.board[x][y].visible){
+            if(gameData.board[x][y].content !== 1 && !gameData.board[x][y].visible){
                 return false;
             }
         }
@@ -124,8 +122,7 @@ export const getBombCount = (x: number, y: number, board: tileData[][])=>{
   }
 
   export const reset = (gameData: gameData)=>{
-    gameData.state = 'firstClick';
-    gameData.setGameBoard(fillBoard(gameData.height, gameData.width))
+    window.location.reload()
   }
 
   export const revealAdjancedTiles = (tile :tileData, gameData: gameData) => {

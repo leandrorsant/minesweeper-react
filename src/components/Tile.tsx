@@ -36,7 +36,7 @@ const Tile = ({tile, gameData}:
 
 
     const handleClick = (tile: tileData) => {
-      console.log(checkSolved(gameData))
+      //console.log(checkSolved(gameData))
       if(tile.flagged || gameData.state === 'gameOver'){
         return;
       }

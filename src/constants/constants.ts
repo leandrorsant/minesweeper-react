@@ -1,5 +1,3 @@
-import { RefObject } from "react"
-
 export let HEIGHT = 10
 export let WIDTH = 10
 
@@ -24,5 +22,5 @@ export type gameData = {
     board: tileData[][]
     setGameBoard: Function,
     height: number,
-    width: number
+    width: number,
 }
