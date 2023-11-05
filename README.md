@@ -9,5 +9,5 @@ npm i
 npm start
 ```
 
-# screenshots
+# Screenshots
 <img src="./screenshots/minesweeper-react-screenshot1.png">
