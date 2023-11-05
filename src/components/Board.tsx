@@ -1,17 +1,25 @@
 import React from 'react'
-import { tileData } from '../constants/constants'
-import Tile from './Tile'
+import { gameData, tileData } from '../constants/constants'
+import '../styles/Board.css'
+import { Center, Box  } from '@mantine/core'
 
-const Board = ({board, setTileClick}:{board: tileData[][], setTileClick: Function}) => {
+import Tile from './Tile'
+import { IconMoodSad, IconMoodSmileBeam } from '@tabler/icons-react'
+import { reset } from './core'
+
+const Board = ({board,gameData}:{board: tileData[][], gameData: gameData}) => {
   return (
     <>
+      <div>
+        <Center><Box onClick={() => reset(gameData)}>{gameData.state != 'gameOver'? <IconMoodSmileBeam size={70}/> : <IconMoodSad size={70}/>}</Box></Center>
         {board.map( (row, _row_index) => (
-        <div key={_row_index}>
+          <Center key={_row_index}>
             {row.map( (t, _tile_index) => (
-                <Tile key={String(_row_index)+ String(_tile_index)} tile={t} setTileClick={setTileClick} />
+                <Tile key={String(_row_index)+ String(_tile_index)} tile={t} gameData={gameData} />
             ))}
-        </div>
+            </Center>
         ) )}
+    </div>
     </>
   )
 }
