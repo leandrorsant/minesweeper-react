@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { clickEvent, gameData, tileData } from '../constants/constants'
 import '../styles/Tile.css'
-import { IconBombFilled, IconFlag, IconFlame } from '@tabler/icons-react'
+import { IconBombFilled, IconFlag, IconFlagFilled, IconFlame } from '@tabler/icons-react'
 import { checkSolved, fillBoard, revealAdjancedTiles, revealEmptyAdjancedTiles, revealEmptyTiles } from './core'
 import { Button } from '@mantine/core'
 
@@ -62,7 +62,6 @@ const Tile = ({tile, gameData}:
 
       if(checkSolved(gameData)){
         gameData.state = 'complete'
-        //alert('solved');
       }
       
 
@@ -102,9 +101,9 @@ const Tile = ({tile, gameData}:
   return (
     <button style={ 
       gameData.state === 'complete' && tile.content === 1? 
-      {backgroundColor: 'green', color: getHintColor(tile.hint)} : !tile.visible? 
-      {backgroundColor: 'gray', color: getHintColor(tile.hint)} : 
-      {backgroundColor: 'white', color: getHintColor(tile.hint)} 
+      {backgroundColor: 'green'} : !tile.visible? 
+      {backgroundColor: 'gray'} : 
+      {backgroundColor: 'white'} 
     } 
       onClick={(e) => {
       onClickHandler(e)
@@ -116,13 +115,18 @@ const Tile = ({tile, gameData}:
       handleRightClick(tileClick)
     }}
     >
-        {tile.flagged? <IconFlag color='green' size={20}/>:
-        
-        tile.content === 1 ? 
-        <IconBombFilled color='red' size={20}/> 
-        : tile.hint
-         
-          }
+        {
+          tile.visible? (
+            tile.content === 1? 
+              <IconBombFilled size={20} /> :
+            tile.hint !== 0?
+            <span style={{color: getHintColor(tile.hint)}}>{tile.hint}</span>:
+              <span className='hidden'>-</span>)
+          : 
+          tile.flagged?
+          <IconFlagFilled size={18}/>: 
+          <span className='hidden'>-</span>
+        }
 
     </button>
   )

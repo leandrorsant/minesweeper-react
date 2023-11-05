@@ -10,7 +10,7 @@ import { reset } from './core'
 const Board = ({board,gameData}:{board: tileData[][], gameData: gameData}) => {
   return (
     <>
-      <div>
+      <div style={{overflow: 'auto'}} >
         <Center>
           <Box onClick={() => reset(gameData)}>
             {gameData.state !== 'gameOver'? 
@@ -21,9 +21,11 @@ const Board = ({board,gameData}:{board: tileData[][], gameData: gameData}) => {
 
         {board.map( (row, _row_index) => (
           <Center key={_row_index}>
+            <div style={{display: 'inline-block', minWidth:'fit-content'}}>
             {row.map( (t, _tile_index) => (
                 <Tile key={String(_row_index)+ String(_tile_index)} tile={t} gameData={gameData} />
             ))}
+            </div>
             </Center>
         ) )}
     </div>

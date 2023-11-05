@@ -18,6 +18,10 @@ export const revealEmptyTiles = (tileClick : clickEvent, board: tileData[][]) : 
       revealEmptyTiles({type: 'left', x: tileClick.x, y: tileClick.y+1}, board.slice());
       revealEmptyTiles({type: 'left', x: tileClick.x-1, y: tileClick.y}, board.slice());
       revealEmptyTiles({type: 'left', x: tileClick.x+1, y: tileClick.y}, board.slice());
+
+      revealEmptyTiles({type: 'left', x: tileClick.x-1, y: tileClick.y-1}, board.slice());
+      revealEmptyTiles({type: 'left', x: tileClick.x+1, y: tileClick.y+1}, board.slice());
+      revealEmptyAdjancedTiles(board[tileClick.x][tileClick.y],board)
       
     } 
   }
@@ -140,7 +144,7 @@ export const getBombCount = (x: number, y: number, board: tileData[][])=>{
     }
   }
 
-  export const revealEmptyAdjancedTiles= (tile : tileData, board: tileData[][]) => {
+  export const revealEmptyAdjancedTiles= (tile : tileData, board: tileData[][]) : tileData[][] => {
     const HEIGHT = board.length
     const WIDTH = board[0].length;
 
