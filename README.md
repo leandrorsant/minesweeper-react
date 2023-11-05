@@ -1,5 +1,5 @@
 # Minesweeper React
-Minesweeper in ReactJS
+Minesweeper in [ReactJS](https://react.dev/)
 
 # Get Started
 ```
