@@ -1,9 +1,9 @@
 import React, { useRef } from 'react'
 import { clickEvent, gameData, tileData } from '../constants/constants'
 import '../styles/Tile.css'
-import { IconBombFilled, IconFlag, IconFlagFilled, IconFlame } from '@tabler/icons-react'
-import { checkSolved, fillBoard, revealAdjancedTiles, revealEmptyAdjancedTiles, revealEmptyTiles } from './core'
-import { Button } from '@mantine/core'
+import { IconBombFilled, IconFlagFilled } from '@tabler/icons-react'
+import { checkSolved, fillBoard, revealAdjancedTiles, revealEmptyTiles } from './core'
+
 
 const getHintColor = (hint : number) => {
   if(hint === 1){

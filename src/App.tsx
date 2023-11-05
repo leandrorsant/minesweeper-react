@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { clickEvent, gameData, tileData } from './constants/constants';
+import { gameData, tileData } from './constants/constants';
 import Board from './components/Board';
 import { fillBoard } from './components/core';
 import { HEIGHT, WIDTH } from './constants/constants';
