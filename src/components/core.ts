@@ -158,5 +158,3 @@ export const getBombCount = (x: number, y: number, board: tileData[][])=>{
     }
     return board;
   }
-
-  

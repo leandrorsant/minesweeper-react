@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useReducer, useRef } from 'react'
 import { clickEvent, gameData, tileData } from '../constants/constants'
 import '../styles/Tile.css'
 import { IconBombFilled, IconFlagFilled } from '@tabler/icons-react'
@@ -35,7 +35,7 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
     setGameBoard: Function
   }) => {
 
-
+    
 
     const handleClick = (tile: tileData, board:tileData[][]) => {
       if(tile.flagged || gameData.state === 'gameOver'){
@@ -59,12 +59,7 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
       if(newBoard[tile.x][tile.y].hint !== 0){
         newBoard[tile.x][tile.y].visible = true;
       }
-
-      if(checkSolved(board,gameData)){
-        gameData.state = 'complete'
-      }
       
-
       //setGameBoard(revealEmptyTiles({type: 'left', x: tile.x, y: tile.y}, newBoard.map(function(e){return e;})));
       revealEmptyTiles({type: 'left', x: tile.x, y: tile.y}, newBoard.map(function(e){return e;}))
       setGameBoard(newBoard.map(function(e){return e;}))
@@ -76,7 +71,6 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
         }else if(board[tileClick.x][tileClick.y].flagged){
           board[tileClick.x][tileClick.y].flagged = false
         }
-
         setGameBoard(board.map(function(e){return e;}))
     }
 
@@ -85,7 +79,6 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
         return;
       }
       revealAdjancedTiles(tile, board, gameData);
-
       setGameBoard(board.map(function(e){return e;}))
     }
 
@@ -96,6 +89,10 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
           timer.current = setTimeout( () => handleClick(tile,gameBoard), 200)
       } else if (event.detail === 2) {
         handleDoubleClick(tile, gameBoard, gameData)
+      }
+      if(checkSolved(gameBoard,gameData)){
+        gameData.state = 'complete'
+        console.log(gameData.state)
       }
   }
 

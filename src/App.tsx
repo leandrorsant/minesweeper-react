@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div>
-       {gameBoard && <Board board={gameBoard} setGameBoard={setGameboard} gameData={gameData}/>}
+       {gameBoard && <Board board={gameBoard} setGameBoard={setGameboard} gameData={gameData} />}
     </div>
   );
 }
