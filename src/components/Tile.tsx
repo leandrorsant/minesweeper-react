@@ -38,7 +38,6 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
 
 
     const handleClick = (tile: tileData, board:tileData[][]) => {
-      //console.log(checkSolved(gameData))
       if(tile.flagged || gameData.state === 'gameOver'){
         return;
       }
@@ -66,7 +65,8 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
       }
       
 
-      setGameBoard(revealEmptyTiles({type: 'left', x: tile.x, y: tile.y}, newBoard.map(function(e){return e;})));
+      //setGameBoard(revealEmptyTiles({type: 'left', x: tile.x, y: tile.y}, newBoard.map(function(e){return e;})));
+      revealEmptyTiles({type: 'left', x: tile.x, y: tile.y}, newBoard.map(function(e){return e;}))
       setGameBoard(newBoard.map(function(e){return e;}))
     }
 
@@ -102,7 +102,10 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
   return (
     <button style={ 
       gameData.state === 'complete' && tile.content === 1? 
-      {backgroundColor: 'green'} : !tile.visible? 
+      {backgroundColor: 'green'} : 
+      gameData.state === 'gameOver' && tile.content === 1? 
+      {backgroundColor: 'red'} : 
+      !tile.visible? 
       {backgroundColor: 'gray'} : 
       {backgroundColor: 'white'} 
     } 
@@ -117,6 +120,9 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
     }}
     >
         {
+          gameData.state === 'gameOver' && tile.content == 1?
+          <IconBombFilled size={20} />:
+         //true? (
           tile.visible? (
             tile.content === 1? 
               <IconBombFilled size={20} /> :
