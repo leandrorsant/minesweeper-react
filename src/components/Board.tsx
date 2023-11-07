@@ -7,12 +7,12 @@ import Tile from './Tile'
 import { IconMoodSad, IconMoodSmileBeam } from '@tabler/icons-react'
 import { reset } from './core'
 
-const Board = ({board,gameData}:{board: tileData[][], gameData: gameData}) => {
+const Board = ({board,gameData, setGameBoard}:{board: tileData[][], gameData: gameData, setGameBoard: Function}) => {
   return (
     <>
       <div style={{overflow: 'auto'}} >
         <Center>
-          <Box onClick={() => reset(gameData)}>
+          <Box onClick={() => reset(board, setGameBoard,gameData)}>
             {gameData.state !== 'gameOver'? 
               <IconMoodSmileBeam size={70}/> : 
               <IconMoodSad size={70}/>}
@@ -23,7 +23,7 @@ const Board = ({board,gameData}:{board: tileData[][], gameData: gameData}) => {
           <Center key={_row_index}>
             <div style={{display: 'inline-block', minWidth:'fit-content'}}>
             {row.map( (t, _tile_index) => (
-                <Tile key={String(_row_index)+ String(_tile_index)} tile={t} gameData={gameData} />
+                <Tile key={String(_row_index)+ String(_tile_index)} tile={t} gameData={gameData} gameBoard={board} setGameBoard={setGameBoard}/>
             ))}
             </div>
             </Center>

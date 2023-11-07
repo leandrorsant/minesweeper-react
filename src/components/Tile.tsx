@@ -28,26 +28,27 @@ const getHintColor = (hint : number) => {
 
 
 
-const Tile = ({tile, gameData}:
+const Tile = ({tile, gameData, gameBoard, setGameBoard}:
   {tile: tileData, 
-    gameData : gameData
+    gameData : gameData,
+    gameBoard: tileData[][],
+    setGameBoard: Function
   }) => {
 
 
 
-    const handleClick = (tile: tileData) => {
+    const handleClick = (tile: tileData, board:tileData[][]) => {
       //console.log(checkSolved(gameData))
       if(tile.flagged || gameData.state === 'gameOver'){
         return;
       }
-      let newBoard = gameData.board.slice();
+      let newBoard = board.slice();
   
       //checking if its the first click on the board
       if(gameData.state === 'firstClick'){
         gameData.state = 'playing'
         //generate a new board if first tile clicked contains a bomb
         while(newBoard[tile.x][tile.y].content !== 0){
-          console.log('bomb')
           newBoard = fillBoard(gameData.height,gameData.width);
         }
       }else{
@@ -55,46 +56,46 @@ const Tile = ({tile, gameData}:
             gameData.state = 'gameOver'
         }
     }
-    
+
       if(newBoard[tile.x][tile.y].hint !== 0){
         newBoard[tile.x][tile.y].visible = true;
       }
 
-      if(checkSolved(gameData)){
+      if(checkSolved(board,gameData)){
         gameData.state = 'complete'
       }
       
 
-      gameData.setGameBoard(revealEmptyTiles({type: 'left', x: tile.x, y: tile.y}, newBoard));
-      gameData.setGameBoard(newBoard.map(function(e){return e;}))
+      setGameBoard(revealEmptyTiles({type: 'left', x: tile.x, y: tile.y}, newBoard.map(function(e){return e;})));
+      setGameBoard(newBoard.map(function(e){return e;}))
     }
 
-    const handleRightClick = (tileClick: clickEvent) =>{  
-        if(!gameData.board[tileClick.x][tileClick.y].flagged){
-          gameData.board[tileClick.x][tileClick.y].flagged = true;
-        }else if(gameData.board[tileClick.x][tileClick.y].flagged){
-          gameData.board[tileClick.x][tileClick.y].flagged = false
+    const handleRightClick = (tileClick: clickEvent, board: tileData[][]) =>{  
+        if(!board[tileClick.x][tileClick.y].flagged){
+          board[tileClick.x][tileClick.y].flagged = true;
+        }else if(board[tileClick.x][tileClick.y].flagged){
+          board[tileClick.x][tileClick.y].flagged = false
         }
 
-        gameData.setGameBoard(gameData.board.map(function(e){return e;}))
+        setGameBoard(board.map(function(e){return e;}))
     }
 
-    const handleDoubleClick = (tile : tileData, gameData: gameData) => {
+    const handleDoubleClick = (tile : tileData, board: tileData[][],gameData: gameData) => {
       if(gameData.state === 'gameOver'){
         return;
       }
-      revealAdjancedTiles(tile, gameData);
+      revealAdjancedTiles(tile, board, gameData);
 
-      gameData.setGameBoard(gameData.board.map(function(e){return e;}))
+      setGameBoard(board.map(function(e){return e;}))
     }
 
     const timer = useRef<NodeJS.Timeout>()
     const onClickHandler = (event: React.MouseEvent<Element, MouseEvent> ) => {
       clearTimeout(timer.current);
       if (event.detail === 1) {
-          timer.current = setTimeout( () => handleClick(tile), 200)
+          timer.current = setTimeout( () => handleClick(tile,gameBoard), 200)
       } else if (event.detail === 2) {
-        handleDoubleClick(tile, gameData)
+        handleDoubleClick(tile, gameBoard, gameData)
       }
   }
 
@@ -112,7 +113,7 @@ const Tile = ({tile, gameData}:
     onContextMenu={(e) =>{
       e.preventDefault()
       const tileClick : clickEvent = {type: 'right', x: tile.x, y: tile.y};
-      handleRightClick(tileClick)
+      handleRightClick(tileClick, gameBoard)
     }}
     >
         {

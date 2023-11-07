@@ -19,8 +19,6 @@ export type tileData = {
 
 export type gameData = {
     state: 'firstClick' | 'playing' | 'gameOver' | 'complete',
-    board: tileData[][]
-    setGameBoard: Function,
     height: number,
     width: number,
 }

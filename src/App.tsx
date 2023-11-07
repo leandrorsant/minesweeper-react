@@ -9,15 +9,13 @@ function App() {
   const [gameBoard, setGameboard] = useState<tileData[][]>(fillBoard(HEIGHT,WIDTH));
   const [gameData, setGameData] = useState<gameData>({
     state: "firstClick",
-    board: gameBoard,
-    setGameBoard: setGameboard,
     height: HEIGHT,
     width: WIDTH
   });
 
   return (
     <div>
-       {gameBoard && <Board board={gameBoard} gameData={gameData}/>}
+       {gameBoard && <Board board={gameBoard} setGameBoard={setGameboard} gameData={gameData}/>}
     </div>
   );
 }
