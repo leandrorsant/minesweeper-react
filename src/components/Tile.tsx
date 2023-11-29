@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react'
+import React, { useEffect, useReducer, useRef } from 'react'
 import { clickEvent, gameData, tileData } from '../constants/constants'
 import '../styles/Tile.css'
 import { IconBombFilled, IconFlagFilled } from '@tabler/icons-react'
@@ -35,7 +35,12 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
     setGameBoard: Function
   }) => {
 
-    
+    useEffect(()=>{
+      if(checkSolved(gameBoard,gameData)){
+        gameData.state = 'complete'
+        console.log(gameData.state)
+      }
+    },[gameBoard, gameData]);
 
     const handleClick = (tile: tileData, board:tileData[][]) => {
       if(tile.flagged || gameData.state === 'gameOver'){
@@ -89,10 +94,6 @@ const Tile = ({tile, gameData, gameBoard, setGameBoard}:
           timer.current = setTimeout( () => handleClick(tile,gameBoard), 200)
       } else if (event.detail === 2) {
         handleDoubleClick(tile, gameBoard, gameData)
-      }
-      if(checkSolved(gameBoard,gameData)){
-        gameData.state = 'complete'
-        console.log(gameData.state)
       }
   }
 
