@@ -1,5 +1,5 @@
-export let HEIGHT = 5
-export let WIDTH = 5
+export let HEIGHT = 8
+export let WIDTH = 8
 
 export type clickEvent = {
     type: "left"| "right",
